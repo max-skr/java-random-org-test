@@ -1,4 +1,4 @@
-package org.random.test.tests.common;
+package org.random.test.tests;
 
 import org.random.test.utils.Browser;
 import org.random.test.utils.DriverProvider;

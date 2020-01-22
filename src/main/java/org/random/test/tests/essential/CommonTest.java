@@ -1,6 +1,7 @@
-package org.random.test.tests.common;
+package org.random.test.tests.essential;
 
-import org.random.test.pages.HomePage;
+import org.random.test.pages.general.HomePage;
+import org.random.test.tests.AbstractTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

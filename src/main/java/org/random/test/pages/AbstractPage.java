@@ -37,7 +37,7 @@ public abstract class AbstractPage<T extends AbstractPage<T>> implements Loadabl
         return BASE_URL;
     }
 
-    private WebDriver getDriver() {
+    protected WebDriver getDriver() {
         return DriverProvider.getCurrentDriver();
     }
 }
