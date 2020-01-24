@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.random.test.data.navigation.GamesNavigation;
 import org.random.test.data.navigation.NavigationItem;
+import org.random.test.data.navigation.NumbersNavigation;
 import org.random.test.pages.AbstractPage;
 import org.random.test.pages.components.NavigationComponent;
 import org.random.test.utils.WaitUtils;
@@ -20,12 +21,13 @@ public abstract class NavigationPage<T extends NavigationPage<T>> extends Abstra
     private static final Map<Class<? extends NavigationItem>, NavigationSection> CLASS_NAVIGATION_SECTION_MAP =
             ImmutableMap.<Class<? extends NavigationItem>, NavigationSection>builder()
                     .put(GamesNavigation.class, NavigationSection.GAMES)
+                    .put(NumbersNavigation.class, NavigationSection.NUMBERS)
                     .build();
 
     @FindBy(xpath = "//ul[@id = 'navigation']//a[text() = 'Home']")
     private WebElement homeButton;
 
-    @FindBy(xpath = "//ul[@id = 'navigation']//a[text() = 'Home']")
+    @FindBy(xpath = "//ul[@id = 'navigation']//a[text() = 'Login']")
     private WebElement loginButton;
 
     public void navigateTo(NavigationItem item) {

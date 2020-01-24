@@ -20,6 +20,15 @@ public class NavigationTest extends AbstractTest {
 
     @Test(dataProviderClass = NavigationDataProvider.class, dataProvider = "gamesNavigation")
     public void testGamesNavigation(NavigationItem item) {
+        testNavigation(item);
+    }
+
+    @Test(dataProviderClass = NavigationDataProvider.class, dataProvider = "numbersNavigation")
+    public void testNumbersNavigation(NavigationItem item) {
+        testNavigation(item);
+    }
+
+    private void testNavigation(NavigationItem item) {
         navigationPage.navigateTo(item);
         WaitUtils.waitUntilLoaded(item.getRedirectionTarget());
     }
