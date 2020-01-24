@@ -1,11 +1,15 @@
 package org.random.test.utils;
 
+import org.apache.commons.lang3.mutable.Mutable;
+import org.apache.commons.lang3.mutable.MutableObject;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.random.test.pages.Loadable;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class WaitUtils {
@@ -38,5 +42,27 @@ public class WaitUtils {
 
     public static void waitForElement(WebElement element, Predicate<WebElement> predicate) {
         createWait(element).until(predicate::test);
+    }
+
+    public static void waitAsserted(Runnable assertion) {
+        Mutable<AssertionError> lastError = new MutableObject<>(null);
+
+        try {
+            createWait(assertion).until(runnable -> {
+                try {
+                    runnable.run();
+                    return true;
+                } catch (AssertionError e) {
+                    lastError.setValue(e);
+                    return null;
+                }
+            });
+        } catch (TimeoutException e) {
+            AssertionError assertionError = lastError.getValue();
+
+            if (Objects.nonNull(assertionError)) {
+                throw assertionError;
+            }
+        }
     }
 }

@@ -27,6 +27,12 @@ public class ElementUtils {
         }
     }
 
+    public static void setValue(WebElement element, String value) {
+        WaitUtils.waitForElement(element, ElementUtils::isDisplayed);
+        element.clear();
+        element.sendKeys(value);
+    }
+
     public static void mouseOver(WebElement element) {
         new Actions(DriverProvider.getCurrentDriver()).moveToElement(element).perform();
     }
