@@ -33,6 +33,10 @@ public class ElementUtils {
         element.sendKeys(value);
     }
 
+    public static String getText(WebElement element) {
+        return WaitUtils.waitVisible(element).getText();
+    }
+
     public static void mouseOver(WebElement element) {
         new Actions(DriverProvider.getCurrentDriver()).moveToElement(element).perform();
     }

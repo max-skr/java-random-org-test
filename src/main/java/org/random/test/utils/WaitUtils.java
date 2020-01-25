@@ -44,6 +44,16 @@ public class WaitUtils {
         createWait(element).until(predicate::test);
     }
 
+    public static WebElement waitVisible(WebElement element) {
+        return createWait(element).until((el) -> {
+            if (ElementUtils.isDisplayed(el)) {
+                return el;
+            } else {
+                return null;
+            }
+        });
+    }
+
     public static void waitAsserted(Runnable assertion) {
         Mutable<AssertionError> lastError = new MutableObject<>(null);
 
