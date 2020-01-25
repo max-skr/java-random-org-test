@@ -10,6 +10,8 @@ import org.random.test.data.navigation.NumbersNavigation;
 import org.random.test.pages.AbstractPage;
 import org.random.test.pages.components.NavigationComponent;
 import org.random.test.utils.WaitUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -17,6 +19,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public abstract class NavigationPage<T extends NavigationPage<T>> extends AbstractPage<T> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(NavigationPage.class);
 
     private static final Map<Class<? extends NavigationItem>, NavigationSection> CLASS_NAVIGATION_SECTION_MAP =
             ImmutableMap.<Class<? extends NavigationItem>, NavigationSection>builder()
@@ -34,15 +38,18 @@ public abstract class NavigationPage<T extends NavigationPage<T>> extends Abstra
         Objects.requireNonNull(item, "Navigation item should be defined");
         NavigationSection section = Optional.ofNullable(CLASS_NAVIGATION_SECTION_MAP.get(item.getClass()))
                 .orElseThrow(() -> new NoSuchElementException("No mapping for navigation item: " + item));
+        LOGGER.info("Going to navigate to item: {} (section: {})", item, section);
         getNavigationComponent(section).navigate(item);
     }
 
     public HomePage navigateHome() {
+        LOGGER.info("Going to navigate to Home page");
         homeButton.click();
         return WaitUtils.waitUntilLoaded(new HomePage());
     }
 
     public LoginPage navigateToLogin() {
+        LOGGER.info("Going to navigate to Login page");
         loginButton.click();
         return WaitUtils.waitUntilLoaded(new LoginPage());
     }

@@ -5,8 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.random.test.utils.DriverProvider;
 import org.random.test.utils.WaitUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPage<T extends AbstractPage<T>> implements Loadable {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
 
     private static final String BASE_URL = "https://random.org";
 
@@ -18,11 +22,14 @@ public abstract class AbstractPage<T extends AbstractPage<T>> implements Loadabl
     public T get() {
         loadPage();
 
+        LOGGER.info("Going to wait until {} loaded.", this.getClass().getSimpleName());
         return (T) WaitUtils.waitUntilLoaded(this);
     }
 
     protected void loadPage() {
-        getDriver().get(getBaseUrl() + getPath());
+        String url = getBaseUrl() + getPath();
+        LOGGER.info("Going to load URL: {}", url);
+        getDriver().get(url);
     }
 
     private String getPath() {
